@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timestamp Tool</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f5f5f5;
+        text-align: center;
+    }
+    #stampBox {
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        background: white;
+    }
+    button {
+        padding: 12px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 6px;
+        background: #0078ff;
+        color: white;
+        cursor: pointer;
+        width: 100%;
+    }
+    button:active {
+        background: #005fcc;
+    }
+</style>
+</head>
+<body>
+
+<h2>Timestamp Tool</h2>
+
+<input id="stampBox" readonly placeholder="Tap button to generate timestamp">
+
+<button onclick="makeStamp()">Generate Timestamp</button>
+
+<script>
+function makeStamp() {
+    const now = new Date();
+    const stamp = now.toLocaleString();
+    const box = document.getElementById("stampBox");
+    box.value = stamp;
+
+    navigator.clipboard.writeText(stamp);
+}
+</script>
+
+</body>
+</html>
 
