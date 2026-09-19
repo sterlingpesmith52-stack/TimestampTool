@@ -4,55 +4,82 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Timestamp Tool</title>
+
 <style>
     body {
-        font-family: Arial, sans-serif;
+        background: #f2f2f2;
         margin: 0;
         padding: 20px;
-        background: #f5f5f5;
-        text-align: center;
+        font-family: 'Segoe UI', sans-serif;
     }
-    #stampBox {
+
+    .widget-panel {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        text-align: left;
+        margin: 0 0 12px 0;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        font-size: 16px;
+        text-align: left;
+    }
+
+    #timestamp {
         width: 100%;
-        padding: 12px;
-        font-size: 18px;
+        padding: 10px;
+        box-sizing: border-box;
+        font-size: 16px;
+        margin-top: 10px;
         border: 1px solid #ccc;
-        border-radius: 6px;
-        margin-bottom: 20px;
-        background: white;
+        border-radius: 4px;
     }
+
     button {
-        padding: 12px 20px;
-        font-size: 18px;
-        border: none;
-        border-radius: 6px;
-        background: #0078ff;
+        display: inline-block;
+        text-align: left;
+        background: #0078d4;
         color: white;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 4px;
+        margin-top: 12px;
+        font-size: 16px;
         cursor: pointer;
-        width: 100%;
     }
-    button:active {
-        background: #005fcc;
+
+    button:hover {
+        background: #005fa3;
     }
 </style>
+
 </head>
 <body>
 
-<h2>Timestamp Tool</h2>
+<div class="widget-panel">
+    <h1>Timestamp Tool</h1>
 
-<input id="stampBox" readonly placeholder="Tap button to generate timestamp">
+    <label for="timestamp">Tap button to generate timestamp</label>
+    <input id="timestamp" type="text" readonly>
 
-<button onclick="makeStamp()">Generate Timestamp</button>
+    <button id="generate">Generate Timestamp</button>
+</div>
 
 <script>
-function makeStamp() {
-    const now = new Date();
-    const stamp = now.toLocaleString();
-    const box = document.getElementById("stampBox");
-    box.value = stamp;
-
-    navigator.clipboard.writeText(stamp);
-}
+    document.getElementById("generate").addEventListener("click", () => {
+        const now = new Date();
+        const ts = now.toISOString();
+        document.getElementById("timestamp").value = ts;
+    });
 </script>
 
 </body>
