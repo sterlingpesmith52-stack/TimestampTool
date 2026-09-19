@@ -10,7 +10,7 @@
         margin: 0;
         padding: 20px;
         background: #f5f5f5;
-        text-align: center;
+        /* text-align: center;   <-- REMOVED to fix left-justify */
     }
     #stampBox {
         width: 100%;
@@ -30,6 +30,7 @@
         color: white;
         cursor: pointer;
         width: 100%;
+        text-align: left;   /* ensures left-justified text inside button */
     }
     button:active {
         background: #005fcc;
