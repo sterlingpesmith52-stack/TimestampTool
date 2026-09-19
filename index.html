@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Timestamp Tool</title>
+<title>MicroTimer</title>
 
 <style>
     body {
@@ -34,20 +34,21 @@
         text-align: left;
     }
 
-    #timestamp {
+    #display {
         width: 100%;
         padding: 10px;
         box-sizing: border-box;
-        font-size: 16px;
+        font-size: 40px;
         margin-top: 10px;
         border: 1px solid #ccc;
         border-radius: 4px;
+        text-align: left;
     }
 
     button {
-        display: inline-block;
+        display: inline-block;      /* auto-width */
         text-align: left;
-        background: #0078d4;
+        background: #0078d4;        /* brand blue */
         color: white;
         padding: 10px 18px;
         border: none;
@@ -58,7 +59,7 @@
     }
 
     button:hover {
-        background: #005fa3;
+        opacity: 0.9;
     }
 </style>
 
@@ -66,29 +67,38 @@
 <body>
 
 <div class="widget-panel">
-    <h1>Timestamp Tool</h1>
+    <h1>MicroTimer</h1>
 
-    <label for="timestamp">Tap button to generate timestamp</label>
-    <input id="timestamp" type="text" readonly>
+    <label for="display">Seconds</label>
+    <input id="display" type="text" value="0" readonly>
 
-    <button id="generate">Generate Timestamp</button>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <button id="reset">Reset</button>
 </div>
 
 <script>
-    document.getElementById("generate").addEventListener("click", () => {
-        const now = new Date();
+    let timer = null;
+    let count = 0;
 
-        // Build timestamp without T or Z, down to seconds
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
+    document.getElementById("start").addEventListener("click", () => {
+        if (timer) return;
+        timer = setInterval(() => {
+            count++;
+            document.getElementById("display").value = count;
+        }, 1000);
+    });
 
-        const ts = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    document.getElementById("stop").addEventListener("click", () => {
+        clearInterval(timer);
+        timer = null;
+    });
 
-        document.getElementById("timestamp").value = ts;
+    document.getElementById("reset").addEventListener("click", () => {
+        clearInterval(timer);
+        timer = null;
+        count = 0;
+        document.getElementById("display").value = "0";
     });
 </script>
 
