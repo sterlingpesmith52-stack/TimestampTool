@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TimestampTool</title>
+
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -13,8 +13,23 @@
         background: white; /* pure white brand background */
     }
 
-    h2 {
-        margin: 0 0 12px 0;
+    .header-row {
+        display: flex;
+        flex-direction: column; /* logo above title */
+        align-items: flex-start; /* left aligned */
+        margin-bottom: 20px;
+    }
+
+    .logo {
+        width: 128px;      /* enlarged logo */
+        height: auto;
+        max-width: none;   /* prevents iPhone Chrome auto-shrink */
+        margin-bottom: 10px;
+    }
+
+    .title {
+        font-size: 22px;
+        font-weight: 600;
         text-align: left;
     }
 
@@ -47,9 +62,13 @@
     }
 </style>
 </head>
+
 <body>
 
-<h2>TimestampTool</h2>
+<div class="header-row">
+    <img src="./IMG_1741.jpeg" class="logo" alt="MicroFoundary Logo">
+    <div class="title">TimestampTool</div>
+</div>
 
 <input id="stampBox" readonly placeholder="Tap button to generate timestamp">
 
@@ -62,7 +81,9 @@ function makeStamp() {
     const box = document.getElementById("stampBox");
     box.value = stamp;
 
-    navigator.clipboard.writeText(stamp);
+    /* iPhone Chrome-safe copy method */
+    box.select();
+    document.execCommand("copy");
 }
 </script>
 
