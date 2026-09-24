@@ -35,7 +35,7 @@
 
     #stampBox {
         width: 100%;
-        padding: 12px 20px; /* consistent right padding */
+        padding: 12px 20px;
         font-size: 18px;
         border: 1px solid #ccc;
         border-radius: 6px;
@@ -53,7 +53,7 @@
         background: #0078ff;
         color: white;
         cursor: pointer;
-        display: inline-block; /* button only as wide as text */
+        display: inline-block;
         text-align: left;
     }
 
@@ -79,11 +79,11 @@ function makeStamp() {
     const now = new Date();
     const stamp = now.toLocaleString();
     const box = document.getElementById("stampBox");
+
     box.value = stamp;
 
-    /* iPhone Chrome-safe copy method */
-    box.select();
-    document.execCommand("copy");
+    /* Copy WITHOUT selecting the input box */
+    navigator.clipboard.writeText(stamp);
 }
 </script>
 
