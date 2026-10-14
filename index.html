@@ -10,26 +10,27 @@
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 20px;
-        background: white; /* pure white brand background */
+        padding-bottom: 90px;
+        background: white;
     }
 
     .header-row {
         display: flex;
-        flex-direction: column; /* logo above title */
-        align-items: flex-start; /* left aligned */
+        flex-direction: column;
+        align-items: flex-start;
         margin-bottom: 20px;
     }
 
     .logo {
-        width: 128px;      /* enlarged logo */
+        width: 128px;
         height: auto;
-        max-width: none;   /* prevents iPhone Chrome auto-shrink */
+        max-width: none;
         margin-bottom: 10px;
     }
 
     .title {
-        font-size: 22px;
-        font-weight: 600;
+        font-size: 24px;
+        font-weight: 700;
         text-align: left;
     }
 
@@ -45,20 +46,48 @@
         box-sizing: border-box;
     }
 
+    .button-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
     button {
         padding: 10px 18px;
-        font-size: 18px;
+        font-size: 16px;
         border: none;
         border-radius: 6px;
         background: #0078ff;
         color: white;
         cursor: pointer;
-        display: inline-block;
-        text-align: left;
+        font-weight: 600;
     }
 
     button:active {
         opacity: 0.85;
+    }
+
+    .buy-footer {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: white;
+        border-top: 1px solid #ddd;
+        padding: 12px;
+        box-sizing: border-box;
+        z-index: 1000;
+    }
+
+    .buy-button {
+        width: 100%;
+        background: #0078ff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 600;
     }
 </style>
 </head>
@@ -72,19 +101,61 @@
 
 <input id="stampBox" readonly placeholder="Tap button to generate timestamp">
 
-<button onclick="makeStamp()">Generate Timestamp</button>
+<div class="button-row">
+    <button onclick="makeStamp()">Generate Timestamp</button>
+    <button onclick="copyStamp()">Copy Timestamp</button>
+</div>
+
+<div class="buy-footer" id="buyFooter">
+    <button class="buy-button">
+        Buy This Tool
+    </button>
+</div>
 
 <script>
 function makeStamp() {
     const now = new Date();
-    const stamp = now.toLocaleString();
-    const box = document.getElementById("stampBox");
 
-    box.value = stamp;
+    const stamp = now.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit'
+    });
 
-    /* Copy WITHOUT selecting the input box */
-    navigator.clipboard.writeText(stamp);
+    document.getElementById('stampBox').value = stamp;
 }
+
+function copyStamp() {
+    const stamp = document.getElementById('stampBox').value;
+
+    if (!stamp) {
+        alert('Generate a timestamp first.');
+        return;
+    }
+
+    navigator.clipboard.writeText(stamp)
+        .then(() => {
+            alert('Timestamp copied!');
+        })
+        .catch(() => {
+            alert('Copy failed.');
+        });
+}
+
+const footer = document.getElementById('buyFooter');
+
+document.querySelectorAll('input, textarea').forEach(el => {
+    el.addEventListener('focus', () => {
+        footer.style.display = 'none';
+    });
+
+    el.addEventListener('blur', () => {
+        footer.style.display = 'block';
+    });
+});
 </script>
 
 </body>
